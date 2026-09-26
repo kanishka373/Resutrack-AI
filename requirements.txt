@@ -6,3 +6,4 @@ reportlab
 plotly
 pandas
 requests
+supabase
