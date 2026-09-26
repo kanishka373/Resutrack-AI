@@ -1,9 +1,9 @@
 streamlit
 streamlit-option-menu
-PyPDF2
 groq
+PyPDF2
 reportlab
 plotly
-pandas
 requests
+pandas
 supabase
