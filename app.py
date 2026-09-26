@@ -5,11 +5,7 @@ import home, analyzer, builder, dashboard, tips, job, about, history
 import db
 
 st.set_page_config(page_title="ResuTrack AI", layout="wide")
-# --- PERSISTENT SESSION ID ---
-# Stored in the URL as ?sid=xxxx so it survives a page refresh (as long as the
-# URL is kept/bookmarked). This is what lets scan history persist per-user
-# without needing a full login system, while still keeping each user's data
-# separate from everyone else's in the SQLite database.
+
 if "sid" not in st.query_params:
     new_sid = str(uuid.uuid4())[:12]
     st.query_params["sid"] = new_sid
