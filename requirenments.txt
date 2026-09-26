@@ -1,0 +1,8 @@
+streamlit
+streamlit-option-menu
+PyPDF2
+groq
+reportlab
+plotly
+pandas
+requests
