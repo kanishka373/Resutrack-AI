@@ -1,7 +1,7 @@
 import streamlit as st
 import uuid
 from streamlit_option_menu import option_menu
-import home, analyzer, builder, dashboard, tips, job, feedback, about, history
+import home, analyzer, builder, dashboard, tips, job, about, history
 import db
 
 st.set_page_config(page_title="ResuTrack AI", layout="wide")
