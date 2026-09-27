@@ -2,7 +2,7 @@
 
 An AI-powered resume analysis tool that gives you an ATS (Applicant Tracking System) compatibility score, actionable feedback, and tracks your improvement over time.
 
-**Live App:** [resutrack.streamlit.app](https://resutrack.streamlit.app)
+**Live App:** [resutrack-ai.streamlit.app](https://resutrack-ai.streamlit.app)
 
 ---
 
@@ -74,6 +74,78 @@ Every scan is saved, so you can track how your ATS score improves scan over scan
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TD
+
+subgraph group_app["App and Navigation"]
+  node_app["Streamlit Router<br/>[app.py]"]
+  node_home["Home Page<br/>[home.py]"]
+  node_about["About Page<br/>[about.py]"]
+end
+
+subgraph group_analysis["Resume Analysis"]
+  node_analyzer["Resume Analyzer<br/>[analyzer.py]"]
+  node_pdf_report["Analysis PDF Report<br/>[analyzer.py]"]
+end
+
+subgraph group_career["Career Tools"]
+  node_resume_pdf["Resume PDF Builder<br/>[builder.py]"]
+  node_roadmap["Career Roadmaps<br/>[tips.py]"]
+  node_job_search["Job Radar<br/>[job.py]"]
+end
+
+subgraph group_tracking["Progress Tracking"]
+  node_dashboard["Analytics Dashboard<br/>[dashboard.py]"]
+  node_history["Resume History<br/>[history.py]"]
+  node_scan_store[("Scan Records<br/>[db.py]")]
+end
+
+subgraph group_external["External Services"]
+  node_groq{{"Groq LLM API"}}
+  node_supabase[("Supabase PostgreSQL")]
+  node_adzuna{{"Adzuna Jobs API"}}
+  node_arbeitnow{{"Arbeitnow Job Board"}}
+end
+
+node_visitor(("Visitor"))
+
+node_visitor -->|"opens"| node_app
+node_app -->|"routes"| node_home
+node_app -->|"routes"| node_analyzer
+node_app -->|"routes"| node_resume_pdf
+node_app -->|"routes"| node_dashboard
+node_app -->|"routes"| node_roadmap
+node_app -->|"routes"| node_job_search
+node_app -->|"routes"| node_history
+node_app -->|"routes"| node_about
+node_visitor -->|"uploads resume"| node_analyzer
+node_analyzer -->|"requests analysis"| node_groq
+node_analyzer -->|"saves scan"| node_scan_store
+node_analyzer -->|"generates report"| node_pdf_report
+node_visitor -->|"enters details"| node_resume_pdf
+node_visitor -->|"searches roles"| node_job_search
+node_job_search -->|"fetches listings"| node_adzuna
+node_job_search -.->|"fetches skill trends"| node_arbeitnow
+node_dashboard -->|"reads scans"| node_scan_store
+node_history -->|"reads and deletes"| node_scan_store
+node_scan_store -->|"queries records"| node_supabase
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_app,node_home,node_about toneBlue
+class node_analyzer,node_pdf_report toneAmber
+class node_resume_pdf,node_roadmap,node_job_search toneMint
+class node_dashboard,node_history,node_scan_store toneRose
+class node_groq,node_supabase,node_adzuna,node_arbeitnow,node_visitor toneIndigo
+```
+
+---
+
 ## Local Setup
 
 1. Clone the repo and install dependencies:
@@ -120,7 +192,8 @@ resume-project/
 ## Roadmap
 
 - [ ] User accounts (email/password login) for cross-device history access
-
+- [ ] Cover Letter Generator — AI-generated cover letters matched to your resume and target role
+- [ ] Export Interview Prep as flashcards for offline study
 ---
 
 Built by Kanishka.
