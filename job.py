@@ -11,9 +11,9 @@ def show_jobs():
     st.markdown("""
         <style>
         .stApp { background-color: #030508; color: white; font-family: 'Inter', sans-serif; }
-            @keyframes float {
+        @keyframes float {
             0% { transform: translateY(0px); box-shadow: 0 0 15px rgba(0,212,255,0.2); }
-             50% { transform: translateY(-8px); box-shadow: 0 0 25px rgba(0,212,255,0.4); }
+            50% { transform: translateY(-8px); box-shadow: 0 0 25px rgba(0,212,255,0.4); }
             100% { transform: translateY(0px); box-shadow: 0 0 15px rgba(0,212,255,0.2); }
         }
 
@@ -23,41 +23,42 @@ def show_jobs():
             backdrop-filter: blur(10px);
         }
         .result-box:hover {
-            background: rgba(0, 212, 255, 0.15);border-color: #00d4ff;animation-play-state: paused;
+            background: rgba(0, 212, 255, 0.15); border-color: #00d4ff; animation-play-state: paused;
         }
 
+        /* Compact static cards (jobs, platforms, companies) */
+        .job-card {
+            background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.25); border-radius: 12px;
+            padding: 14px 16px; margin-bottom: 16px; min-height: 150px; transition: 0.3s;
+        }
+        .job-card:hover { background: rgba(0, 212, 255, 0.15); border-color: #00d4ff; }
+        .job-apply {
+            background: linear-gradient(135deg, #00d4ff, #0080ff); color: #000 !important; padding: 6px 16px;
+            border-radius: 8px; text-decoration: none !important; font-weight: bold; font-size: 0.85rem;
+            display: inline-block; margin-top: 6px;
+        }
+        .job-apply:hover { background: linear-gradient(135deg, #0080ff, #00d4ff); color: white !important; }
+
         .company-logo {
-            width: 38px;  height: 38px;  object-fit: contain;  background: rgba(255, 255, 255, 0.9);  border-radius: 10px;
-            padding: 8px;  margin-right: 15px;  box-shadow: 0 0 10px rgba(0,212,255,0.3);
+            width: 38px; height: 38px; object-fit: contain; background: rgba(255, 255, 255, 0.9); border-radius: 10px;
+            padding: 8px; margin-right: 15px; box-shadow: 0 0 10px rgba(0,212,255,0.3);
         }
         .concept-icon {
             width: 24px; height: 24px; margin-bottom: 0; vertical-align: -4px; margin-right: 8px;
             filter: invert(68%) sepia(95%) saturate(1352%) hue-rotate(163deg) brightness(101%) contrast(101%);
         }
-
         .skill-tag {
             background: rgba(0, 212, 255, 0.1); color: #00d4ff; border: 1px solid rgba(0, 212, 255, 0.3);
-            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-right: 5px; display: inline-block; margin-top: 5px;
+            padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; margin: 3px 3px 0 0; display: inline-block;
         }
         div.stButton > button[kind="secondary"] {
-    background: #161b22 !important; border: 1px solid rgba(0,212,255,0.4) !important; color: #00d4ff !important; 
-    border-radius: 10px !important; font-weight: 600 !important;
-}
-div.stButton > button[kind="secondary"]:hover {
-    border-color: #00d4ff !important; color: #ffffff !important; background:rgba(0,212,255,0.4) !important;
-}
-
-        .view-btn {
-            background: linear-gradient(135deg, #00d4ff, #0080ff); color: #000 !important; border: none; padding: 10px 20px;
-            border-radius: 8px; text-decoration: none !important; font-weight: bold;
-            display: inline-block; margin-top: 15px; width: 100%; text-align: center;
+            background: #161b22 !important; border: 1px solid rgba(0,212,255,0.4) !important; color: #00d4ff !important;
+            border-radius: 10px !important; font-weight: 600 !important;
         }
-        .view-btn:hover { background: linear-gradient(135deg, #0080ff, #00d4ff); color: white !important; }
-        .section-header { color: #00d4ff; font-size: 1.5rem; font-weight: bold; margin: 25px 0; border-left: 5px solid #00d4ff; padding-left: 15px;display:flex;align-items:center; }
-        .apply-btn-inline {
-            background: linear-gradient(135deg, #00d4ff, #0080ff); color: #000 !important; border: none; padding: 8px 20px;
-            border-radius: 8px; text-decoration: none !important; font-weight: bold; text-align: center; min-width: 100px;
+        div.stButton > button[kind="secondary"]:hover {
+            border-color: #00d4ff !important; color: #ffffff !important; background: rgba(0,212,255,0.4) !important;
         }
+        .section-header { color: #00d4ff; font-size: 1.5rem; font-weight: bold; margin: 25px 0; border-left: 5px solid #00d4ff; padding-left: 15px; display: flex; align-items: center; }
         </style>
     """, unsafe_allow_html=True)
     st.markdown('''
@@ -157,9 +158,9 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
         "0-3 LPA": (0, 300000), "3-6 LPA": (300000, 600000), "6-10 LPA": (600000, 1000000), "10-15 LPA": (1000000, 1500000),
         "15-25 LPA": (1500000, 2500000), "25+ LPA": (2500000, 0),
     }
-    salary_col,_ = st.columns([1,2])
+    salary_col, _ = st.columns([1, 2])
     with salary_col:
-     salary_choice = st.selectbox("Salary Range", list(SALARY_RANGES.keys()))
+        salary_choice = st.selectbox("Salary Range", list(SALARY_RANGES.keys()))
     salary_min, salary_max = SALARY_RANGES[salary_choice]
     _, scan_btn_col, _ = st.columns([1, 1, 1])
     with scan_btn_col:
@@ -182,11 +183,11 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
 
         EXPERIENCE_KEYWORDS = {
             "Fresher / Intern": ["fresher", "intern", "trainee", "entry level", "entry-level", "graduate"],
-            "Junior (0-2 yrs)": ["junior", "associate"],"Mid-level (2-5 yrs)": ["mid-level", "mid level"],
+            "Junior (0-2 yrs)": ["junior", "associate"], "Mid-level (2-5 yrs)": ["mid-level", "mid level"],
             "Senior (5+ yrs)": ["senior", "lead", "principal", "staff"],
         }
 
-        @st.cache_data(ttl=600,show_spinner=False)
+        @st.cache_data(ttl=600, show_spinner=False)
         def fetch_adzuna_jobs(what, where, job_type_param, sal_min, sal_max):
             """Fetches live jobs from Adzuna's India job search API — supports real
             location search and salary range filtering, unlike the previous free API."""
@@ -199,7 +200,7 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
             params = {
                 "app_id": app_id,
                 "app_key": app_key,
-                "results_per_page":50,
+                "results_per_page": 50,
                 "content-type": "application/json",
             }
             if what:
@@ -227,12 +228,11 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
                 return [], "Couldn't reach Adzuna right now. Try again in a bit."
 
         with st.spinner(" Searching live job listings..."):
-            raw_jobs, fetch_error = fetch_adzuna_jobs(role_in,loc_in.strip() or "India",job_type,salary_min,salary_max)
+            raw_jobs, fetch_error = fetch_adzuna_jobs(role_in, loc_in.strip() or "India", job_type, salary_min, salary_max)
 
         if fetch_error:
             st.warning(fetch_error)
         else:
-
             jobs = []
             for r in raw_jobs:
                 jobs.append({
@@ -255,37 +255,38 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
                 st.info("No jobs found with these filters. Try: a broader role name, removing the Salary Range, or removing the Experience Level filter — not every Adzuna listing has that data.")
             else:
                 st.caption(f"Showing {len(jobs)} live listings from Adzuna, fetched just now.")
-                jobs_col=st.columns(2)
-                for idx,job in enumerate(jobs):
-                    title = job["title"]
-                    company = job["company_name"]
-                    location = job["location"]
-                    url = job["url"]
-                    def to_lpa(amount):
-                        return  round (amount /100000,1)
-                    if job["salary_min"] and job["salary_max"]:
-                        salary_line = f"₹{to_lpa(job['salary_min'])}L – ₹{to_lpa(job['salary_max'])}L /yr"
-                    else:
-                        salary_line = "Salary not listed"
-                    apply_html = (
-                        f'<a href="{url}" target="_blank" class="view-btn">Apply Now →</a>'
-                        if url else
-                        '<p style="color:#888; text-align:center; margin-top:15px;">Application link unavailable</p>'
-                    )
-                    with jobs_col[idx % 2]:
-                        st.markdown(textwrap.dedent(f'''
-                            <div class="result-box">
-                            <h3 style="margin:0; color:#00d4ff;">{title}</h3>
-                            <p style="color:#a0aec0; margin:6px 0;">{company} · {location}</p>
-                            <p style="color:#00ff88; font-weight:bold; margin:0 0 8px;">{salary_line}</p>
-                            {apply_html}
-                        </div>
-                    ''').strip(), unsafe_allow_html=True)
 
+                def to_lpa(amount):
+                    return round(amount / 100000, 1)
+
+                for row_start in range(0, len(jobs), 2):
+                    row_cols = st.columns(2)
+                    for offset, job in enumerate(jobs[row_start:row_start + 2]):
+                        title = job["title"]
+                        company = job["company_name"]
+                        location = job["location"]
+                        url = job["url"]
+                        if job["salary_min"] and job["salary_max"]:
+                            salary_line = f"₹{to_lpa(job['salary_min'])}L – ₹{to_lpa(job['salary_max'])}L /yr"
+                        else:
+                            salary_line = "Salary not listed"
+                        apply_html = (
+                            f'<a href="{url}" target="_blank" class="job-apply">Apply Now →</a>'
+                            if url else
+                            '<p style="color:#888; margin-top:8px; font-size:0.8rem;">Application link unavailable</p>'
+                        )
+                        with row_cols[offset]:
+                            st.markdown(textwrap.dedent(f'''
+                                <div class="job-card">
+                                <h3 style="margin:0 0 4px; color:#00d4ff; font-size:1.05rem; line-height:1.3;">{title}</h3>
+                                <p style="color:#a0aec0; margin:0 0 4px; font-size:0.85rem;">{company} · {location}</p>
+                                <p style="color:#00ff88; font-weight:bold; margin:0 0 6px; font-size:0.85rem;">{salary_line}</p>
+                                {apply_html}
+                                </div>
+                            ''').strip(), unsafe_allow_html=True)
 
         st.markdown(f'<div class="section-header"><img src="{LUCIDE}/link-2.svg" class="concept-icon"> More Places to Search</div>', unsafe_allow_html=True)
         LOGO = "https://www.google.com/s2/favicons"
-        results_cols = st.columns(3)
         platforms = [
             ("LinkedIn", f"{LOGO}?domain=linkedin.com&sz=128", "https://linkedin.com/jobs"),
             ("Google Careers", f"{LOGO}?domain=google.com&sz=128", "https://careers.google.com"),
@@ -295,19 +296,21 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
             ("Wellfound", f"{LOGO}?domain=wellfound.com&sz=128", "https://wellfound.com")
         ]
 
-        for i, (name, icon, url) in enumerate(platforms):
-            dynamic_desc = f"{role_in} jobs in {loc_in}" if role_in and loc_in else "Hiring now"
-            with results_cols[i % 3]:
-                st.markdown(textwrap.dedent(f'''
-                    <div class="result-box">
-                        <div style="display:flex; align-items:center;">
-                            <img src="{icon}" class="company-logo" style="width:35px; height:35px;">
-                            <h3 style="margin:0; color:#00d4ff;">{name}</h3>
+        dynamic_desc = f"{role_in} jobs in {loc_in}" if role_in and loc_in else "Hiring now"
+        for row_start in range(0, len(platforms), 3):
+            row_cols = st.columns(3)
+            for offset, (name, icon, url) in enumerate(platforms[row_start:row_start + 3]):
+                with row_cols[offset]:
+                    st.markdown(textwrap.dedent(f'''
+                        <div class="job-card" style="min-height:0;">
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+                                <img src="{icon}" class="company-logo" style="width:28px; height:28px; padding:5px; margin-right:0;">
+                                <h3 style="margin:0; color:#00d4ff; font-size:1.05rem;">{name}</h3>
+                            </div>
+                            <p style="color:#a0aec0; margin:0 0 6px; font-size:0.85rem;">{dynamic_desc}</p>
+                            <a href="{url}" target="_blank" class="job-apply">View Jobs →</a>
                         </div>
-                        <p style="color:#a0aec0; margin-top:10px;">{dynamic_desc}</p>
-                        <a href="{url}" target="_blank" class="view-btn">View Jobs on {name} →</a>
-                    </div>
-                ''').strip(), unsafe_allow_html=True)
+                    ''').strip(), unsafe_allow_html=True)
 
         st.markdown(f'<div class="section-header"><img src="{LUCIDE}/building-2.svg" class="concept-icon"> Featured Tech Companies</div>', unsafe_allow_html=True)
         st.caption("Well-known tech employers — not live vacancy listings from our API.")
@@ -326,18 +329,19 @@ Search <span style="color:#00d4ff; font-weight:700;">live job listings</span> an
             ("Swiggy", f"{LOGO}?domain=swiggy.com&sz=128", ["Logistics", "Backend", "Scale"], "https://careers.swiggy.com")
         ]
 
-        company_cols = st.columns(4)
-        for i, (name, logo_url, tags, url) in enumerate(companies):
-            tags_html = "".join([f'<span class="skill-tag">{tag}</span>' for tag in tags])
-            with company_cols[i % 4]:
-                st.markdown(textwrap.dedent(f'''
-                    <div class="result-box" style="text-align:center;">
-                        <img src="{logo_url}" class="company-logo" style="margin:0 auto 10px auto; display:block;">
-                        <h3 style="margin:0; font-size:1.1rem; color:white;">{name}</h3>
-                        <div style="margin-top:8px;">{tags_html}</div>
-                        <a href="{url}" target="_blank" class="apply-btn-inline" style="display:block; margin-top:12px;">APPLY</a>
-                    </div>
-                ''').strip(), unsafe_allow_html=True)
+        for row_start in range(0, len(companies), 4):
+            row_cols = st.columns(4)
+            for offset, (name, logo_url, tags, url) in enumerate(companies[row_start:row_start + 4]):
+                tags_html = "".join([f'<span class="skill-tag">{tag}</span>' for tag in tags])
+                with row_cols[offset]:
+                    st.markdown(textwrap.dedent(f'''
+                        <div class="job-card" style="text-align:center; min-height:0;">
+                            <img src="{logo_url}" class="company-logo" style="width:30px; height:30px; padding:5px; margin:0 auto 8px auto; display:block;">
+                            <h3 style="margin:0; font-size:1rem; color:white;">{name}</h3>
+                            <div style="margin:6px 0;">{tags_html}</div>
+                            <a href="{url}" target="_blank" class="job-apply">APPLY</a>
+                        </div>
+                    ''').strip(), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     show_jobs()
