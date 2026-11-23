@@ -27,11 +27,8 @@ def show_about():
         </style>
     """, unsafe_allow_html=True)
 
-    # Header
     st.markdown(f"<h1 style='text-align:center; color:#00d4ff;'> <img src='{LUCIDE}/sparkles.svg' class='concept-icon'> About ResuTrack</h1>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
-
-    # 1. Project overview — what ResuTrack is
     st.markdown(f'''
         <div class="about-card" style="text-align:center;">
             <p style="color:#eee; font-size:1.05rem; line-height:1.8; max-width:750px; margin:0 auto;">
@@ -42,8 +39,6 @@ def show_about():
             </p>
         </div>
     ''', unsafe_allow_html=True)
-
-    # 2. What it does
     st.markdown(f'''
         <div class="about-card">
             <div class="section-title"><img src='{LUCIDE}/rocket.svg' class='concept-icon'>  What It Does</div>
@@ -60,8 +55,6 @@ def show_about():
         </div>
     ''', unsafe_allow_html=True)
 
-    # 3. Tech Stack
-        # 3. Tech Stack
     tech_stack = ["Python", "Streamlit", "Groq (Llama-3.3)", "Supabase (PostgreSQL)", "PyPDF2", "ReportLab", "Plotly", "Adzuna API"]
     tags_html = "".join([f'<div class="skill-tag">{tech}</div>' for tech in tech_stack])
     st.markdown(f'''
@@ -70,9 +63,7 @@ def show_about():
             {tags_html}
         </div>
     ''', unsafe_allow_html=True)
-
-        # 4. About the creator — at the very end
-       # 4. About the creator — at the very end
+    #about section
     st.markdown(f'''
         <div class="about-card">
             <div class="section-title"><img src='{LUCIDE}/user.svg' class='concept-icon'> Who Built This</div>
@@ -91,11 +82,9 @@ def show_about():
         </div>
     ''', unsafe_allow_html=True)
 
-    # 5. Footer section
     st.markdown("""
     <div style="text-align:center; margin-top:40px; padding-top:24px; border-top:1px solid rgba(0,212,255,0.15);">
-        <p style="font-size:1rem; color:#8b949e; letter-spacing:1px;">
-            Made with <span style="color:#00d4ff;">♦</span> by 
+        <p style="font-size:1rem; color:#8b949e; letter-spacing:1px;">Made by 
             <span style="color:#00d4ff; font-weight:700;">Kanishka</span>
         </p>
         <p style="font-size:0.9rem; color:gray; margin-top:4px;">&copy; 2026 ResuTrack</p>
